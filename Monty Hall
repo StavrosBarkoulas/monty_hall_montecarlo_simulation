@@ -1,0 +1,32 @@
+# Running both switching and staying simulations
+
+def monty_hall_simulation_both(trials=1000):
+    switch_wins = 0
+    stay_wins = 0
+
+    for _ in range(trials):
+        # Randomly assign the car behind one of the 3 doors
+        car_position = np.random.randint(0, 3)
+        
+        # Player randomly picks a door
+        player_choice = np.random.randint(0, 3)
+        
+        # The host opens a door with a goat (not the car or the player's choice)
+        possible_goat_doors = [door for door in range(3) if door != car_position and door != player_choice]
+        host_opens = np.random.choice(possible_goat_doors)
+        
+        # Switching choice
+        new_choice = [door for door in range(3) if door != player_choice and door != host_opens][0]
+        if new_choice == car_position:
+            switch_wins += 1
+        
+        # Staying choice
+        if player_choice == car_position:
+            stay_wins += 1
+
+    return switch_wins, stay_wins
+
+# Run simulation for 1000 trials
+switch_wins, stay_wins = monty_hall_simulation_both(trials=1000)
+
+switch_wins, stay_wins
